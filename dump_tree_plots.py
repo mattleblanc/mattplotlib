@@ -19,6 +19,7 @@ parser = OptionParser()
 parser.add_option("--input", help="Input NTUPs (flat trees!)", default="${ROOTCOREBIN}/../input/")
 parser.add_option("--output", help="Directory for output files", default="${ROOTCOREBIN}/../output/")
 parser.add_option("--tree", help="Tree name in input NTUPs", default="CollectionTree")
+parser.add_option("--weight", help="Event-by-event weight string", default="")
 parser.add_option("--label", help="Output file label string", default="label")
 parser.add_option("--verbose", action='store_true', help="Verbose output? Default is False", default=False)
 
@@ -34,7 +35,7 @@ for file in signal_infiles :
 	filename = signal_input.GetName()
 
 	signal_tree = signal_input.Get(options.tree)
-	weight = 'mc_weight'
+	weight = options.weight
 
 	for branch in signal_tree.GetListOfBranches() :
 
