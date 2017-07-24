@@ -1,3 +1,6 @@
+# Declare the package name:
+atlas_subdir( MyAnalysis )
+
 # Component(s) in the package:
 atlas_add_root_dictionary (MyAnalysisLib
    MyAnalysisDictSource
