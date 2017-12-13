@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 '''
-mattplotlib/el-skel/el_esqueleto.py
+mattplotlib/el-skel/jared_esqueleto.py
 Make an empty EventLoop algorithm skeleton.
 
 This is meant to replace the old
