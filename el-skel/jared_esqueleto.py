@@ -55,6 +55,33 @@ if(not os.path.exists(cdir+'/'+options.package+'/Root/'+options.algo+'.cxx')):
     f1.close()
     f2.close()
 
+    f1 = open(cdir+'/MyAnalysisDict.h', 'r')
+    f2 = open(options.package+'/'+options.package+'/'+options.package+'Dict.h', 'w')
+    for line in f1:
+        line = line.replace('MyAnalysis', options.package)
+        line = line.replace('MyxAODAnalysis', options.algo)
+    f2.write(line)
+    f1.close()
+    f2.close()
+
+    f1 = open(cdir+'/selection.xml', 'r')
+    f2 = open(options.package+'/'+options.package+'/selection.xml', 'w')
+    for line in f1:
+        line = line.replace('MyAnalysis', options.package)
+        line = line.replace('MyxAODAnalysis', options.algo)
+    f2.write(line)
+    f1.close()
+    f2.close()
+
+    f1 = open(cdir+'/CMakeLists.txt', 'r')
+    f2 = open(options.package+'/'+options.package+'/CMakeLists.xml', 'w')
+    for line in f1:
+        line = line.replace('MyAnalysis', options.package)
+        line = line.replace('MyxAODAnalysis', options.algo)
+    f2.write(line)
+    f1.close()
+    f2.close()
+
     if(not os.path.exists(options.package+'/Root/LinkDef.h')):
         f1 = open(cdir+'/LinkDef.h', 'r')
         f2 = open(options.package+'/Root/LinkDef.h', 'w')

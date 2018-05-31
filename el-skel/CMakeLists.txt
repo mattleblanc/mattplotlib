@@ -1,16 +1,24 @@
-# Declare the package name:
-atlas_subdir( MyAnalysis )
+# The name of the package:
+atlas_subdir (MyAnalysis)
 
-# Component(s) in the package:
-atlas_add_root_dictionary (MyAnalysisLib
-   MyAnalysisDictSource
-   ROOT_HEADERS MyAnalysis/*.h Root/LinkDef.h
-   EXTERNAL_PACKAGES ROOT )
-
-# add the library itself:
+# Add the shared library:
 atlas_add_library (MyAnalysisLib
-   MyAnalysis/*.h MyAnalysis/*.ihh Root/*.cxx ${MyAnalysisDictSource}
-   PUBLIC_HEADERS MyAnalysis
-   INCLUDE_DIRS
-   LINK_LIBRARIES EventLoop
-   PRIVATE_LINK_LIBRARIES )
+  MyAnalysis/*.h Root/*.cxx
+  PUBLIC_HEADERS MyAnalysis
+  LINK_LIBRARIES AnaAlgorithmLib)
+
+# Add the dictionary:
+atlas_add_dictionary (MyAnalysisDict
+  MyAnalysis/MyAnalysisDict.h
+  MyAnalysis/selection.xml
+  LINK_LIBRARIES MyAnalysisLib)
+
+if (NOT XAOD_STANDALONE)
+  # Add a component library for AthAnalysis only:
+  atlas_add_component (MyAnalysis
+    src/components/*.cxx
+    LINK_LIBRARIES MyAnalysisLib)
+endif ()
+
+# Install files from the package:
+atlas_install_joboptions( share/*.py )
