@@ -32,6 +32,15 @@ canvas.SetLeftMargin(0.15)
 canvas.SetRightMargin(0.15)
 canvas.cd()
 
+l=ROOT.TLatex()
+l.SetNDC()
+l.SetTextFont(72)
+l.SetTextSize(0.04)
+p=ROOT.TLatex()
+p.SetNDC();
+p.SetTextFont(42)
+p.SetTextSize(0.04)
+
 def truncate(n):
         return int(n * 1000) / 1000
 
@@ -151,6 +160,8 @@ if __name__ == "__main__":
     parser.add_argument("--inFile", dest='inFile', default="", required=True, help="Input file.")
     parser.add_argument("--inMatrix", dest='inMatrix', default="h2_unfolding_resp_jet_m_pt", help="Input histo.")
     parser.add_argument("--outDir", dest='outDir', default="", help="Output directory.")
+    parser.add_argument("--xtitle", dest='xtitle', default="", required=False, help="x-axis title.")
+    parser.add_argument("--ytitle", dest='ytitle', default="", required=False, help="x-axis title.")
     parser.add_argument("--desiredFrac", dest='desiredFrac', type=float, help="what % of entries on diagonal?")
     parser.add_argument("--rebin", dest='rebin', default=1, type=int, help="initial rebinning factor")
     parser.add_argument("--minValue", dest='minValue', default=0., type=float, help="what is the minimum observable value for this matrix?")
@@ -184,7 +195,13 @@ if __name__ == "__main__":
         h2.SetMinimum(0.)
         h2.SetMaximum(1.)
 
+        h2.GetXaxis().SetTitle(args.xtitle)
+        h2.GetYaxis().SetTitle(args.ytitle)
         h2.Draw("COLZ")
+        
+        l.DrawLatex(0.15,  0.905, "ATLAS")
+        p.DrawLatex(0.285, 0.905, "Simulation Internal")
+        ROOT.gPad.RedrawAxis()
 
         if(nIterations<10):                       
             canvas.SaveAs(args.outDir+"00"+str(nIterations)+".pdf")
